@@ -268,12 +268,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}
-                metalness={0.8}
+                metalness={0.9}
               />
             </mesh>
 
             {/* Clip geometry */}
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
+            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.6} />
 
             {/* Clamp geometry */}
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
@@ -291,7 +291,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={1}
+          lineWidth={0.6}
         />
       </mesh>
     </>

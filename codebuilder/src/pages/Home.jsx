@@ -34,13 +34,13 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black z-10 pointer-events-none" />
 
         {/* Content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-6 pt-20 grid md:grid-cols-2 gap-12 items-center w-full pointer-events-none">
+        <div className="relative z-20 max-w-7xl mx-auto px-6 pt-20 grid md:grid-cols-2 gap-12 items-center w-full">
 
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="pointer-events-auto"
+            
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight select-none">
               We Build <span className="text-primary">Digital Excellence</span>
