@@ -1,7 +1,5 @@
-
-
 import { motion } from "framer-motion";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 const MotionLink = motion(Link);
 import {
   ArrowRight,
@@ -11,43 +9,37 @@ import {
   Users,
   Award,
 } from "lucide-react";
+import Lanyard from "../components/Lanyard";
 
-import LiquidEther from "../components/LiquidEther";
 import ServiceCard from "../components/ServiceCard";
 
 export default function Home() {
   return (
     <>
       {/* HERO SECTION */}
-      <section className="min-h-screen relative flex items-center bg-black">
-
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <LiquidEther
-            colors={["#00d4ff", "#22d3ee", "#a855f7"]}
-            mouseForce={25}
-            cursorSize={110}
-          />
+      <section className="min-h-screen relative flex items-center bg-black overflow-hidden">
+        {/* Lanyard Background - Only here, safely contained */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
         </div>
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black z-10 pointer-events-none" />
+        {/* Overlay - Stronger at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-black z-10 pointer-events-none" />
 
-        {/* Content */}
+        {/* Content - This stays on top */}
         <div className="relative z-20 max-w-7xl mx-auto px-6 pt-20 grid md:grid-cols-2 gap-12 items-center w-full">
-
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight select-none">
               We Build <span className="text-primary">Digital Excellence</span>
             </h1>
 
             <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-lg select-none">
-              Transforming ideas into powerful websites, mobile apps, and custom software solutions.
+              Transforming ideas into powerful websites, mobile apps, and custom
+              software solutions.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -95,9 +87,7 @@ export default function Home() {
 
       {/* SERVICES SECTION */}
       <section className="py-24 bg-gradient-to-b from-[#0b0b0b] via-[#0f0f0f] to-[#0b0b0b] relative z-30">
-
         <div className="max-w-7xl mx-auto px-6">
-
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -113,12 +103,36 @@ export default function Home() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ServiceCard icon={Globe} title="Custom Websites" desc="WordPress, React, and headless CMS solutions" />
-            <ServiceCard icon={Code2} title="Custom Software Development" desc="ERP, CRM, inventory & business tools" />
-            <ServiceCard icon={Smartphone} title="Mobile App Development" desc="iOS & Android native and cross-platform apps" />
-            <ServiceCard icon={Users} title="UI/UX Design" desc="Beautiful and user-centered interfaces" />
-            <ServiceCard icon={Award} title="SEO Optimization" desc="Improve your Google rankings" />
-            <ServiceCard icon={Globe} title="Social Media Marketing" desc="Strategic growth across platforms" />
+            <ServiceCard
+              icon={Globe}
+              title="Custom Websites"
+              desc="WordPress, React, and headless CMS solutions"
+            />
+            <ServiceCard
+              icon={Code2}
+              title="Custom Software Development"
+              desc="ERP, CRM, inventory & business tools"
+            />
+            <ServiceCard
+              icon={Smartphone}
+              title="Mobile App Development"
+              desc="iOS & Android native and cross-platform apps"
+            />
+            <ServiceCard
+              icon={Users}
+              title="UI/UX Design"
+              desc="Beautiful and user-centered interfaces"
+            />
+            <ServiceCard
+              icon={Award}
+              title="SEO Optimization"
+              desc="Improve your Google rankings"
+            />
+            <ServiceCard
+              icon={Globe}
+              title="Social Media Marketing"
+              desc="Strategic growth across platforms"
+            />
           </div>
         </div>
       </section>
@@ -128,9 +142,7 @@ export default function Home() {
 
       {/* WHY US SECTION */}
       <section className="py-24 bg-gradient-to-b from-[#0f0f0f] via-[#0b0b0b] to-black relative z-30">
-
         <div className="max-w-7xl mx-auto px-6">
-
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -141,11 +153,19 @@ export default function Home() {
           </motion.h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-
             {[
-              { title: "Fast Delivery", desc: "On-time delivery with exceptional quality." },
-              { title: "Expert Team", desc: "Experienced developers and creative designers." },
-              { title: "Full Support", desc: "Maintenance and technical support after launch." },
+              {
+                title: "Fast Delivery",
+                desc: "On-time delivery with exceptional quality.",
+              },
+              {
+                title: "Expert Team",
+                desc: "Experienced developers and creative designers.",
+              },
+              {
+                title: "Full Support",
+                desc: "Maintenance and technical support after launch.",
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -159,7 +179,6 @@ export default function Home() {
                 <p className="text-gray-400">{item.desc}</p>
               </motion.div>
             ))}
-
           </div>
         </div>
       </section>
@@ -167,44 +186,40 @@ export default function Home() {
       {/* 🔥 WHY US → CTA TRANSITION */}
       <div className="h-32 bg-gradient-to-b from-black to-transparent" />
 
-      {/* CTA SECTION */}
       {/* CTA → FINAL SECTION */}
-<section className="py-24 bg-gradient-to-b from-transparent via-black/40 to-black relative z-30">
+      <section className="py-24 bg-gradient-to-b from-transparent via-black/40 to-black relative z-30">
+        <div className="max-w-4xl mx-auto text-center px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+          >
+            Ready to Bring Your{" "}
+            <span className="text-primary">Idea to Life?</span>
+          </motion.h2>
 
-  <div className="max-w-4xl mx-auto text-center px-6">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto"
+          >
+            Let’s discuss your project and create something extraordinary
+            together. From concept to deployment, we handle everything for you.
+          </motion.p>
 
-    <motion.h2
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-    >
-      Ready to Bring Your <span className="text-primary">Idea to Life?</span>
-    </motion.h2>
-
-    <motion.p
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.1 }}
-      className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto"
-    >
-      Let’s discuss your project and create something extraordinary together.
-      From concept to deployment, we handle everything for you.
-    </motion.p>
-
-    <MotionLink
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      to="/contact"
-      className="inline-block bg-primary text-black font-semibold text-xl px-12 py-5 rounded-full hover:bg-cyan-400 transition shadow-lg shadow-primary/20"
-    >
-      Get Consultation
-    </MotionLink>
-
-  </div>
-</section>
-
+          <MotionLink
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            to="/contact"
+            className="inline-block bg-primary text-black font-semibold text-xl px-12 py-5 rounded-full hover:bg-cyan-400 transition shadow-lg shadow-primary/20"
+          >
+            Get Consultation
+          </MotionLink>
+        </div>
+      </section>
     </>
   );
 }

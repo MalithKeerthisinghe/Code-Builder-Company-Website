@@ -1,52 +1,69 @@
-
-'use client';
-import { useEffect, useRef, useState } from 'react';
-import { Canvas, extend, useFrame } from '@react-three/fiber';
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
-import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
-import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { Canvas, extend, useFrame } from "@react-three/fiber";
+import {
+  useGLTF,
+  useTexture,
+  Environment,
+  Lightformer,
+} from "@react-three/drei";
+import {
+  BallCollider,
+  CuboidCollider,
+  Physics,
+  RigidBody,
+  useRopeJoint,
+  useSphericalJoint,
+} from "@react-three/rapier";
+import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 
 // Import your 3D assets
-import cardGLB from '../assets/lanyard/card.glb';
-import lanyardTexture from '../assets/lanyard/lanyard.png';
+import cardGLB from "../assets/lanyard/card.glb";
+import lanyardTexture from "../assets/lanyard/lanyard.png";
 
-import * as THREE from 'three';
+import * as THREE from "three";
 
 // Register meshline components
 extend({ MeshLineGeometry, MeshLineMaterial });
 
 /**
  * Main Lanyard Component
- * 
+ *
  * @param {Array} position - Camera position [x, y, z]
  * @param {Array} gravity - Physics gravity [x, y, z]
  * @param {Number} fov - Field of view
  * @param {Boolean} transparent - Canvas transparency
  */
-export default function Lanyard({ 
-  position = [0, 0, 30], 
-  gravity = [0, -40, 0], 
-  fov = 20, 
-  transparent = true 
+export default function Lanyard({
+  position = [0, 0, 30],
+  gravity = [0, -40, 0],
+  fov = 20,
+  transparent = true,
 }) {
-  const [isMobile, setIsMobile] = useState(() => 
-    typeof window !== 'undefined' && window.innerWidth < 768
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768,
   );
 
   // Handle window resize for responsive rendering
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className="relative z-0 w-full h-screen flex justify-center items-center transform scale-100 origin-center">
+    <div className="absolute inset-0 w-full h-full pointer-events-none">
       <Canvas
+        gl={{
+          alpha: transparent,
+          transparent: true,
+        }}
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
-        onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
+        onCreated={({ gl }) =>
+          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
+        }
       >
         {/* Ambient lighting */}
         <ambientLight intensity={Math.PI} />
@@ -110,12 +127,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   const dir = new THREE.Vector3();
 
   // Physics body configuration
-  const segmentProps = { 
-    type: 'dynamic', 
-    canSleep: true, 
-    colliders: false, 
-    angularDamping: 4, 
-    linearDamping: 4 
+  const segmentProps = {
+    type: "dynamic",
+    canSleep: true,
+    colliders: false,
+    angularDamping: 4,
+    linearDamping: 4,
   };
 
   // Load 3D model and texture
@@ -130,7 +147,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
         new THREE.Vector3(),
         new THREE.Vector3(),
         new THREE.Vector3(),
-      ])
+      ]),
   );
 
   // Drag state
@@ -143,14 +160,14 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
-    [0, 1.5, 0]
+    [0, 1.5, 0],
   ]);
 
   // Update cursor style on hover
   useEffect(() => {
     if (hovered) {
-      document.body.style.cursor = dragged ? 'grabbing' : 'grab';
-      return () => void (document.body.style.cursor = 'auto');
+      document.body.style.cursor = dragged ? "grabbing" : "grab";
+      return () => void (document.body.style.cursor = "auto");
     }
   }, [hovered, dragged]);
 
@@ -161,32 +178,34 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
-      
+
       // Wake up all physics bodies
-      [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
-      
+      [card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp());
+
       // Update card position based on drag
-      card.current?.setNextKinematicTranslation({ 
-        x: vec.x - dragged.x, 
-        y: vec.y - dragged.y, 
-        z: vec.z - dragged.z 
+      card.current?.setNextKinematicTranslation({
+        x: vec.x - dragged.x,
+        y: vec.y - dragged.y,
+        z: vec.z - dragged.z,
       });
     }
 
     // Update band curve and physics
     if (fixed.current) {
       // Lerp mid-joints for smooth motion
-      [j1, j2].forEach(ref => {
+      [j1, j2].forEach((ref) => {
         if (!ref.current.lerped) {
-          ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
+          ref.current.lerped = new THREE.Vector3().copy(
+            ref.current.translation(),
+          );
         }
         const clampedDistance = Math.max(
-          0.1, 
-          Math.min(1, ref.current.lerped.distanceTo(ref.current.translation()))
+          0.1,
+          Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())),
         );
         ref.current.lerped.lerp(
           ref.current.translation(),
-          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
+          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)),
         );
       });
 
@@ -202,16 +221,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       // Dampen card rotation
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
-      card.current.setAngvel({ 
-        x: ang.x, 
-        y: ang.y - rot.y * 0.25, 
-        z: ang.z 
+      card.current.setAngvel({
+        x: ang.x,
+        y: ang.y - rot.y * 0.25,
+        z: ang.z,
       });
     }
   });
 
   // Configure curve and texture
-  curve.curveType = 'chordal';
+  curve.curveType = "chordal";
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
   return (
@@ -237,27 +256,31 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
         </RigidBody>
 
         {/* Card body */}
-        <RigidBody 
-          position={[2, 0, 0]} 
-          ref={card} 
-          {...segmentProps} 
-          type={dragged ? 'kinematicPosition' : 'dynamic'}
+        <RigidBody
+          position={[2, 0, 0]}
+          ref={card}
+          {...segmentProps}
+          type={dragged ? "kinematicPosition" : "dynamic"}
         >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
 
           {/* Card visual and interaction */}
-            <group
-              scale={2.25}
+          <group
+            scale={2.25}
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={e => (
-              e.target.releasePointerCapture(e.pointerId), 
+            onPointerUp={(e) => (
+              e.target.releasePointerCapture(e.pointerId),
               drag(false)
             )}
-            onPointerDown={e => (
+            onPointerDown={(e) => (
               e.target.setPointerCapture(e.pointerId),
-              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())))
+              drag(
+                new THREE.Vector3()
+                  .copy(e.point)
+                  .sub(vec.copy(card.current.translation())),
+              )
             )}
           >
             {/* Card geometry */}
@@ -273,7 +296,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             </mesh>
 
             {/* Clip geometry */}
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.6} />
+            <mesh
+              geometry={nodes.clip.geometry}
+              material={materials.metal}
+              material-roughness={0.6}
+            />
 
             {/* Clamp geometry */}
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />

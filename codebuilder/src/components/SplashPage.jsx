@@ -3,12 +3,22 @@ import { useEffect, useState } from "react";
 
 export default function SplashPage({ onComplete }) {
   const [progress, setProgress] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [isHolding, setIsHolding] = useState(false);
   const circumference = 2 * Math.PI * 60;
 
   useEffect(() => {
-    if (!loading) return;
+    if (!isHolding) {
+      // When not holding, gradually decrease progress
+      if (progress <= 0) return;
 
+      const timer = window.setTimeout(() => {
+        setProgress((current) => Math.max(0, current - 1));
+      }, 50);
+
+      return () => window.clearTimeout(timer);
+    }
+
+    // When holding, increase progress
     if (progress >= 100) {
       const timer = window.setTimeout(() => {
         onComplete?.();
@@ -17,15 +27,26 @@ export default function SplashPage({ onComplete }) {
     }
 
     const timer = window.setTimeout(() => {
-      setProgress((current) => Math.min(100, current + 4));
+      setProgress((current) => Math.min(100, current + 1));
     }, 50);
 
     return () => window.clearTimeout(timer);
-  }, [loading, progress, onComplete]);
+  }, [isHolding, progress, onComplete]);
 
-  const handleClick = () => {
-    if (loading) return;
-    setLoading(true);
+  const handleMouseDown = () => {
+    setIsHolding(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsHolding(false);
+  };
+
+  const handleTouchStart = () => {
+    setIsHolding(true);
+  };
+
+  const handleTouchEnd = () => {
+    setIsHolding(false);
   };
 
   return (
@@ -33,14 +54,18 @@ export default function SplashPage({ onComplete }) {
       <div className="relative flex flex-col items-center gap-8">
         <button
           type="button"
-          onClick={handleClick}
-          disabled={loading}
-          className="relative rounded-full p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          disabled={progress === 100}
+          className="relative rounded-full p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 active:opacity-90 transition-opacity"
         >
           <motion.div
             initial={{ scale: 0.96 }}
-            whileHover={{ scale: loading ? 1 : 1.02 }}
-            whileTap={{ scale: loading ? 1 : 0.98 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             className="relative flex items-center justify-center"
           >
             <svg className="w-56 h-56" viewBox="0 0 140 140" aria-hidden="true">
@@ -60,7 +85,9 @@ export default function SplashPage({ onComplete }) {
                 strokeWidth="10"
                 fill="none"
                 strokeDasharray={circumference}
-                strokeDashoffset={circumference - (progress / 100) * circumference}
+                strokeDashoffset={
+                  circumference - (progress / 100) * circumference
+                }
                 strokeLinecap="round"
                 transform="rotate(-90 70 70)"
                 style={{ transition: "stroke-dashoffset 0.05s linear" }}
@@ -79,7 +106,6 @@ export default function SplashPage({ onComplete }) {
 
         <div className="text-center max-w-xl">
           <h1 className="text-4xl font-bold tracking-tight">CodeBuilder</h1>
-          
         </div>
 
         <div className="w-72 h-3 rounded-full bg-white/10 overflow-hidden">
@@ -90,7 +116,11 @@ export default function SplashPage({ onComplete }) {
         </div>
 
         <p className="text-sm text-gray-400">
-          {loading ? `Loading ${progress}%` : "Tap the logo to continue"}
+          {isHolding
+            ? `Loading ${Math.round(progress)}%`
+            : progress > 0
+              ? `Release to reset`
+              : "Hold the logo to continue"}
         </p>
       </div>
     </div>
