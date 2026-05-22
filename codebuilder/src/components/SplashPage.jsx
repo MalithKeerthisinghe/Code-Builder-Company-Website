@@ -105,7 +105,7 @@ export default function SplashPage({ onComplete }) {
         </button>
 
         <div className="text-center max-w-xl">
-          <h1 className="text-4xl font-bold tracking-tight">CodeBuilder</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Code Builder</h1>
         </div>
 
         <div className="w-72 h-3 rounded-full bg-white/10 overflow-hidden">

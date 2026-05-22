@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowUp, Phone, Mail, MapPin } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowUp, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -14,7 +14,6 @@ export default function Footer() {
     <footer className="relative z-50 bg-black pt-16 pb-10 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -26,7 +25,8 @@ export default function Footer() {
             </h2>
 
             <p className="text-gray-400 leading-relaxed">
-              Transforming ideas into powerful digital solutions across Sri Lanka.
+              Transforming ideas into powerful digital solutions across Sri
+              Lanka.
             </p>
 
             <button
@@ -34,7 +34,6 @@ export default function Footer() {
               className="mt-6 flex items-center gap-2 text-primary hover:text-cyan-300 transition group"
             >
               Back to Top
-
               <ArrowUp
                 className="group-hover:-translate-y-1 transition"
                 size={18}
@@ -49,12 +48,9 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <h3 className="text-lg font-semibold mb-5">
-              Quick Links
-            </h3>
+            <h3 className="text-lg font-semibold mb-5">Quick Links</h3>
 
             <div className="space-y-3">
-
               <Link
                 to="/"
                 onClick={scrollToTop}
@@ -94,7 +90,6 @@ export default function Footer() {
               >
                 Contact
               </Link>
-
             </div>
           </motion.div>
 
@@ -105,9 +100,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-lg font-semibold mb-5">
-              Our Services
-            </h3>
+            <h3 className="text-lg font-semibold mb-5">Our Services</h3>
 
             <div className="space-y-3 text-gray-400">
               <p>Custom Websites</p>
@@ -126,12 +119,9 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <h3 className="text-lg font-semibold mb-5">
-              Contact Us
-            </h3>
+            <h3 className="text-lg font-semibold mb-5">Contact Us</h3>
 
             <div className="space-y-4 text-gray-400">
-
               <a
                 href="tel:+94762112626"
                 className="flex items-center gap-3 hover:text-white transition"
@@ -157,31 +147,43 @@ export default function Footer() {
                   Katuwana, Sri Lanka
                 </span>
               </div>
-
             </div>
 
+            
             {/* Social Links */}
             <div className="mt-8">
               <h4 className="uppercase text-xs tracking-widest text-gray-500 mb-4">
                 Follow Us
               </h4>
 
-              <div className="flex gap-5">
-
-                <a
+              <div className="flex items-center gap-5">
+                {/* Facebook */}
+                <motion.a
                   href="#"
-                  className="hover:text-primary transition"
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition"
                 >
-                  Facebook
-                </a>
+                  <img
+                    src="/icons/facebook.png"
+                    alt="Facebook"
+                    className="w-6 h-6"
+                  />
+                </motion.a>
 
-                <a
+                {/* LinkedIn */}
+                <motion.a
                   href="#"
-                  className="hover:text-primary transition"
+                  whileHover={{ scale: 1.15, rotate: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition"
                 >
-                  LinkedIn
-                </a>
-
+                  <img
+                    src="/icons/linkedin.png"
+                    alt="LinkedIn"
+                    className="w-6 h-6"
+                  />
+                </motion.a>
               </div>
             </div>
           </motion.div>

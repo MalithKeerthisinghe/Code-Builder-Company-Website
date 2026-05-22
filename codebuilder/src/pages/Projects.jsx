@@ -7,35 +7,35 @@ export default function Projects() {
       title: "SL Gaming Hub",
       desc: "A polished gaming community site with featured tournaments, live news, and membership onboarding.",
       category: "Website",
-      image: "https://picsum.photos/id/1041/800/600",
+      image: "/projects/slgaming.jpeg",
       link: "https://www.slgaminghub.com/"
     },
     {
       title: "NIC Campus",
       desc: "Modern education portal for students and faculty with course access, announcements, and campus resources.",
       category: "Website",
-      image: "https://picsum.photos/id/1011/800/600",
+      image: "/projects/nic.jpeg",
       link: "https://niccampus.com/"
     },
     {
-      title: "NA de Villas & Tours",
+      title: "Nadee Villas & Tours",
       desc: "Travel booking and destination showcase site for luxury villas, tours, and custom vacation experiences.",
       category: "Website",
-      image: "https://picsum.photos/id/1018/800/600",
+      image: "/projects/nadeevilla.jpeg",
       link: "https://www.nadevillasandtours.com/"
     },
     {
-      title: "SerendiPhub",
+      title: "Serendip Hub",
       desc: "A digital hub for entrepreneur services, community events, and brand discovery with a strong visual identity.",
       category: "Website",
-      image: "https://picsum.photos/id/1025/800/600",
+      image: "/projects/serendip.jpeg",
       link: "https://serendiphub.com/"
     },
     {
-      title: "TechGiant",
+      title: "Tech Giant",
       desc: "Corporate IT services website showcasing technology solutions, client success stories, and contact capture.",
       category: "Website",
-      image: "https://picsum.photos/id/1035/800/600",
+      image: "/projects/techgiant.jpeg",
       link: "https://techgiant.lk/"
     }
   ];
