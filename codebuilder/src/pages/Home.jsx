@@ -12,6 +12,7 @@ import {
 import Lanyard from "../components/Lanyard";
 
 import ServiceCard from "../components/ServiceCard";
+import ShinyText from "../components/ShinyText.jsx";
 
 export default function Home() {
   return (
@@ -190,14 +191,21 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-b from-transparent via-black/40 to-black relative z-30">
         <div className="max-w-4xl mx-auto text-center px-6">
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-          >
-            Ready to Bring Your{" "}
-            <span className="text-primary">Idea to Life?</span>
-          </motion.h2>
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+>
+  <ShinyText
+    text="Ready to Bring Your Idea to Life?"
+    speed={3}
+    shineColor="#22d3ee"
+    color="#ffffff"
+    spread={140}
+    pauseOnHover={true}
+    className="block text-center"
+  />
+</motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -211,12 +219,29 @@ export default function Home() {
           </motion.p>
 
           <MotionLink
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             to="/contact"
-            className="inline-block bg-primary text-black font-semibold text-xl px-12 py-5 rounded-full hover:bg-cyan-400 transition shadow-lg shadow-primary/20"
+            animate={{
+              y: [0, -6, 0],
+              boxShadow: [
+                "0px 0px 0px rgba(34, 211, 238, 0.0)",
+                "0px 0px 25px rgba(34, 211, 238, 0.35)",
+                "0px 0px 0px rgba(34, 211, 238, 0.0)",
+              ],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            whileHover={{
+              scale: 1.08,
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            className="inline-block bg-primary text-black font-semibold text-xl px-12 py-5 rounded-full transition"
           >
-            Get Consultation
+            Book a Meeting
           </MotionLink>
         </div>
       </section>
