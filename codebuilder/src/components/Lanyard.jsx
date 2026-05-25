@@ -19,7 +19,7 @@ import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 
 // Import your 3D assets
 import cardGLB from "../assets/lanyard/card.glb";
-import lanyardTexture from "../assets/lanyard/lanyard.png";
+import lanyardTexture from "../assets/lanyard/Lanyard.png";
 
 import * as THREE from "three";
 
