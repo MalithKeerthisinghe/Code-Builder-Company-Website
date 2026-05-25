@@ -159,7 +159,7 @@ export default function Footer() {
               <div className="flex items-center gap-5">
                 {/* Facebook */}
                 <motion.a
-                  href="#"
+                  href="https://www.facebook.com/share/1LD6KGNNEp/?mibextid=wwXIfr"
                   whileHover={{ scale: 1.15, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
                   className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition"
@@ -173,7 +173,7 @@ export default function Footer() {
 
                 {/* LinkedIn */}
                 <motion.a
-                  href="#"
+                  href="https://www.linkedin.com/company/codebuilderit/"
                   whileHover={{ scale: 1.15, rotate: -5 }}
                   whileTap={{ scale: 0.95 }}
                   className="p-2 rounded-xl bg-white/5 hover:bg-white/10 transition"
