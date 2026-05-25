@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
+
+const API = import.meta.env.VITE_API_URL;
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -39,7 +42,7 @@ export default function Contact() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/contact',
+        `${API}/contact`,
         formData
       );
 
