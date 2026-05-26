@@ -127,7 +127,7 @@ export default function Footer() {
                 className="flex items-center gap-3 hover:text-white transition"
               >
                 <Phone size={20} />
-                +94 76 211 2626
+                076 280 2919
               </a>
 
               <a
@@ -142,9 +142,8 @@ export default function Footer() {
                 <MapPin size={20} className="mt-0.5" />
 
                 <span>
-                  Samagi Mawatha,
-                  <br />
-                  Katuwana, Sri Lanka
+                  Colombo, Sri Lanka
+                 
                 </span>
               </div>
             </div>
