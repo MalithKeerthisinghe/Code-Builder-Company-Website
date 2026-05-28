@@ -8,7 +8,8 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  'https://codebuilderit.vercel.app',
+  'https://www.codebuilder.it.com',
+  'https://codebuilder.it.com',
   'http://localhost:5173'
 ];
 
